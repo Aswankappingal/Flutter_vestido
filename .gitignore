@@ -1,0 +1,73 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+migrate_working_dir/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# The Visual Studio Code directory
+.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+/build/
+
+# Symbolication logging
+/crash_logs.txt
+
+# Android related
+**/android/**/gradle-wrapper.jar
+.gradle/
+captures/
+externalNativeBuild/
+gradle-app.properties
+gradle.properties
+local.properties
+
+# iOS/macOS related
+**/ios/Flutter/App.framework
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/flutter_export_environment.sh
+**/ios/Scanner.xcworkspace
+**/ios/Pods/
+**/ios/.map/
+**/macos/Flutter/ephemeral/
+**/macos/Pods/
+DerivedData/
+
+# Android Studio will regenerate this directory
+android/app/src/main/res/drawable-v21/launch_background.xml
+android/app/src/main/res/values-night/styles.xml
+android/app/src/main/res/values/styles.xml
+
+# Log files
+*.log
+
+# Packages
+.packages
+
+# Build directory
+build/
+
+# User-specific stuff
+.idea/
+.vscode/
+.history
