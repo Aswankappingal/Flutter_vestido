@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:flutter/foundation.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'dart:async';
@@ -11,6 +12,7 @@ void main() async {
   );
   runApp(
     MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
         colorSchemeSeed: Colors.white,
@@ -21,10 +23,10 @@ void main() async {
 }
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+  const SplashScreen ({super.key}) ;
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  State<SplashScreen > createState () => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> {
@@ -72,40 +74,31 @@ class WebViewApp extends StatefulWidget {
 }
 
 class _WebViewAppState extends State<WebViewApp> {
-  late final WebViewController controller;
+  final GlobalKey webViewKey = GlobalKey();
+  InAppWebViewController? webViewController;
 
-  @override
-  void initState() {
-    super.initState();
-    controller = WebViewController()
-      ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..setBackgroundColor(const Color(0x00000000))
-      ..setNavigationDelegate(
-        NavigationDelegate(
-          onProgress: (int progress) {
-            // Update loading bar.
-          },
-          onPageStarted: (String url) {},
-          onPageFinished: (String url) {},
-          onWebResourceError: (WebResourceError error) {},
-          onNavigationRequest: (NavigationRequest request) {
-            return NavigationDecision.navigate;
-          },
-        ),
-      )
-      ..setUserAgent(
-          "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36")
-      ..loadRequest(Uri.parse('https://vestido-customer.vercel.app/'));
-  }
+  InAppWebViewSettings settings = InAppWebViewSettings(
+    isInspectable: kDebugMode,
+    mediaPlaybackRequiresUserGesture: false,
+    allowsInlineMediaPlayback: true,
+    iframeAllow: "camera; microphone",
+    iframeAllowFullscreen: true,
+    javaScriptEnabled: true,
+    javaScriptCanOpenWindowsAutomatically: true,
+    supportMultipleWindows: true,
+    // Clean user agent to avoid Google's "403: disallowed_useragent"
+    userAgent: "Mozilla/5.0 (Linux; Android 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36",
+  );
 
   @override
   Widget build(BuildContext context) {
+    
     return PopScope(
       canPop: false,
       onPopInvoked: (didPop) async {
         if (didPop) return;
-        if (await controller.canGoBack()) {
-          await controller.goBack();
+        if (webViewController != null && await webViewController!.canGoBack()) {
+          await webViewController!.goBack();
         } else {
           // If we can't go back, we can pop the app.
           if (context.mounted) {
@@ -114,8 +107,43 @@ class _WebViewAppState extends State<WebViewApp> {
         }
       },
       child: Scaffold(
+        backgroundColor: Colors.white,
         body: SafeArea(
-          child: WebViewWidget(controller: controller),
+          child: InAppWebView(
+            key: webViewKey,
+            initialUrlRequest: URLRequest(url: WebUri("https://vestidonation.com/")),
+            initialSettings: settings,
+            onWebViewCreated: (controller) {
+              webViewController = controller;
+            },
+            onCreateWindow: (controller, createWindowAction) async {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    contentPadding: EdgeInsets.zero,
+                    content: SizedBox(
+                      width: double.maxFinite,
+                      height: MediaQuery.of(context).size.height * 0.8,
+                      child: InAppWebView(
+                        windowId: createWindowAction.windowId,
+                        initialSettings: InAppWebViewSettings(
+                          javaScriptEnabled: true,
+                          userAgent: "Mozilla/5.0 (Linux; Android 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36",
+                        ),
+                        onCloseWindow: (controller) async {
+                          if (context.mounted) {
+                            Navigator.pop(context);
+                          }
+                        },
+                      ),
+                    ),
+                  );
+                },
+              );
+              return true;
+            },
+          ),
         ),
       ),
     );
