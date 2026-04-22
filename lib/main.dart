@@ -50,7 +50,7 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              'assets/logo.png',
+              'assets/logo-white.png',
               width: 250,
               errorBuilder: (context, error, stackTrace) =>
                   const Icon(Icons.shopping_bag_outlined, size: 100),
