@@ -51,20 +51,23 @@
       left: 0;
       z-index: 9999;
     }
-    .logo {
-      width: 250px;
-      animation: pulse 2s infinite ease-in-out;
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid #f3f3f3;
+      border-top: 5px solid #000000;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
     }
-    @keyframes pulse {
-      0% { transform: scale(1); opacity: 0.8; }
-      50% { transform: scale(1.1); opacity: 1; }
-      100% { transform: scale(1); opacity: 0.8; }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
   </style>
 </head>
 <body>
   <div id="loading-indicator" class="loading-container">
-    <img src="logo-white.png" class="logo" alt="Vestido Logo" />
+    <div class="spinner"></div>
   </div>
   <script src="flutter_bootstrap.js" async></script>
 </body>
