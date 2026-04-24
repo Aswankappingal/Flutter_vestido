@@ -17,46 +17,9 @@ void main() async {
         useMaterial3: true,
         colorSchemeSeed: Colors.white,
       ),
-      home: const SplashScreen(),
+      home: const WebViewApp(),
     ),
   );
-}
-
-class SplashScreen extends StatefulWidget {
-  const SplashScreen ({super.key}) ;
-
-  @override
-  State<SplashScreen > createState () => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    super.initState();
-    Timer(const Duration(seconds: 3), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const WebViewApp()),
-      );
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const CircularProgressIndicator(
-              color: Colors.black,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 }
 
 class WebViewApp extends StatefulWidget {
