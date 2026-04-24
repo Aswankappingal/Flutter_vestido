@@ -27,6 +27,9 @@ flutter:
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/logo-white.png"
+  web:
+    generate: true
+    image_path: "assets/App-logo.PNG"
+  image_path: "assets/App-logo.PNG"
   min_sdk_android: 21
   remove_alpha_ios: true
