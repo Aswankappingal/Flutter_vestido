@@ -58,8 +58,8 @@ class _WebViewAppState extends State<WebViewApp> {
         } else {
           // If we can't go back, we can pop the app.
           if (context.mounted) {
-            Navigator.of(context).pop();
-            
+            Navigator.of(context).pop(); 
+
           }
         }
       },
