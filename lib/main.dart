@@ -41,6 +41,7 @@ class _WebViewAppState extends State<WebViewApp> {
     iframeAllowFullscreen: true,
     javaScriptEnabled: true,
     javaScriptCanOpenWindowsAutomatically: true,
+    
     supportMultipleWindows: true,
     // Clean user agent to avoid Google's "403: disallowed_useragent"
     userAgent: "Mozilla/5.0 (Linux; Android 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36",
@@ -58,7 +59,8 @@ class _WebViewAppState extends State<WebViewApp> {
         } else {
           // If we can't go back, we can pop the app.
           if (context.mounted) {
-            Navigator.of(context).pop(); 
+            Navigator.of(context).pop();   
+            
 
           }
         }
