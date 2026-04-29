@@ -3,7 +3,6 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-import 'dart:async';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,29 +40,25 @@ class _WebViewAppState extends State<WebViewApp> {
     iframeAllowFullscreen: true,
     javaScriptEnabled: true,
     javaScriptCanOpenWindowsAutomatically: true,
-    
+
     supportMultipleWindows: true,
     // Clean user agent to avoid Google's "403: disallowed_useragent"
-    userAgent: "Mozilla/5.0 (Linux; Android 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36",
+    userAgent:
+        "Mozilla/5.0 (Linux; Android 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36",
   );
 
   @override
   Widget build(BuildContext context) {
-    
     return PopScope(
       canPop: false,
-      onPopInvoked: (didPop) async {
+      onPopInvokedWithResult: (didPop, result) async {
         if (didPop) return;
         if (webViewController != null && await webViewController!.canGoBack()) {
           await webViewController!.goBack();
         } else {
           // If we can't go back, we can pop the app.
           if (context.mounted) {
-            Navigator.of(context).pop();   
-
-            
-
-
+            Navigator.of(context).pop();
           }
         }
       },
@@ -72,7 +67,8 @@ class _WebViewAppState extends State<WebViewApp> {
         body: SafeArea(
           child: InAppWebView(
             key: webViewKey,
-            initialUrlRequest: URLRequest(url: WebUri("https://vestidonation.com/")),
+            initialUrlRequest:
+                URLRequest(url: WebUri("https://vestidonation.com/")),
             initialSettings: settings,
             onWebViewCreated: (controller) {
               webViewController = controller;
@@ -90,7 +86,8 @@ class _WebViewAppState extends State<WebViewApp> {
                         windowId: createWindowAction.windowId,
                         initialSettings: InAppWebViewSettings(
                           javaScriptEnabled: true,
-                          userAgent: "Mozilla/5.0 (Linux; Android 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36",
+                          userAgent:
+                              "Mozilla/5.0 (Linux; Android 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36",
                         ),
                         onCloseWindow: (controller) async {
                           if (context.mounted) {
@@ -110,4 +107,3 @@ class _WebViewAppState extends State<WebViewApp> {
     );
   }
 }
- 

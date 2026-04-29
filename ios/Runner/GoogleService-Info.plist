@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1049928809020-7g1rrope8mujgj9bb0uj9cful2l80r6k.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1049928809020-7g1rrope8mujgj9bb0uj9cful2l80r6k</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>1049928809020-am9ujt09jmj7261945gv7dq35m4bmfce.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAjFgK7jOAUzt-_uqRjDzOsRcW4ufPCWO8</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1049928809020</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.vestidonation.app</string>
+	<key>PROJECT_ID</key>
+	<string>vestido-nation</string>
+	<key>STORAGE_BUCKET</key>
+	<string>vestido-nation.firebasestorage.app</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1049928809020:ios:89ab008ec56f6975cca139</string>
+</dict>
+</plist>

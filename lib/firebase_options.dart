@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBpYcz5yeoLwun2bBF9HWAr3KUGPeZbN0U',
-    appId: '1:1049928809020:android:76a60ae05ad5d70fcca139',
+    appId: '1:1049928809020:android:f19d61939eb2fc2bcca139',
     messagingSenderId: '1049928809020',
     projectId: 'vestido-nation',
     storageBucket: 'vestido-nation.firebasestorage.app',
@@ -63,7 +63,9 @@ class DefaultFirebaseOptions {
     messagingSenderId: '1049928809020',
     projectId: 'vestido-nation',
     storageBucket: 'vestido-nation.firebasestorage.app',
+    androidClientId: '1049928809020-am9ujt09jmj7261945gv7dq35m4bmfce.apps.googleusercontent.com',
     iosClientId: '1049928809020-7g1rrope8mujgj9bb0uj9cful2l80r6k.apps.googleusercontent.com',
     iosBundleId: 'com.vestidonation.app',
   );
+
 }
