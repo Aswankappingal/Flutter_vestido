@@ -51,6 +51,8 @@
     <dict>
         <key>NSAllowsArbitraryLoads</key>
         <true/>
+        <key>NSAllowsArbitraryLoadsInWebContent</key>
+        <true/>
     </dict>
     <key>LSApplicationQueriesSchemes</key>
     <array>
@@ -61,6 +63,12 @@
         <string>gpay</string>
         <string>tez</string>
         <string>bhim</string>
+        <string>whatsapp</string>
+        <string>credpay</string>
+        <string>amazonpay</string>
+        <string>mobikwik</string>
+        <string>freecharge</string>
+        <string>airtelmoney</string>
     </array>
 </dict>
 </plist>

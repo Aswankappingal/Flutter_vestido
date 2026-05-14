@@ -2,7 +2,7 @@ name: flutter_vestido
 description: A new Flutter project for Vestido Nation.
 publish_to: 'none'
 # version: 1.0.1+2 #android
-version: 1.0.0+2 #ios
+version: 1.0.1+1 #ios
 
 environment:
   sdk: '>=3.0.0 <4.0.0'

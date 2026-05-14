@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'dart:io';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -51,8 +52,9 @@ class _WebViewAppState extends State<WebViewApp> {
         allowFileAccess: true,
         allowContentAccess: true,
         thirdPartyCookiesEnabled: true,
-        userAgent:
-            "Mozilla/5.0 (Linux; Android 13) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36",
+        userAgent: Platform.isAndroid
+            ? "Mozilla/5.0 (Linux; Android 13) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36"
+            : "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
       );
 
   // Helper method to check if URL should be opened externally.
@@ -69,21 +71,28 @@ class _WebViewAppState extends State<WebViewApp> {
     final url = navigationAction.request.url?.toString() ?? '';
     if (kDebugMode) print("Checking URL: $url");
 
-    // Explicitly handle common UPI schemes as suggested
+    // Explicitly handle common UPI and payment schemes
     if (url.startsWith("upi://") ||
         url.startsWith("gpay://") ||
         url.startsWith("phonepe://") ||
         url.startsWith("paytmmp://") ||
         url.startsWith("tez://") ||
-        url.startsWith("paytm://")) {
+        url.startsWith("paytm://") ||
+        url.startsWith("whatsapp://") ||
+        url.startsWith("credpay://") ||
+        url.startsWith("amazonpay://") ||
+        url.startsWith("mobikwik://") ||
+        url.startsWith("freecharge://") ||
+        url.startsWith("airtelmoney://")) {
       try {
         final uri = Uri.parse(url);
         if (await canLaunchUrl(uri)) {
-          await launchUrl(uri, mode: LaunchMode.externalNonBrowserApplication);
+          // On iOS, externalApplication is often more reliable for deep links
+          await launchUrl(uri, mode: LaunchMode.externalApplication);
           return NavigationActionPolicy.CANCEL;
         }
       } catch (e) {
-        if (kDebugMode) print('Error launching UPI scheme: $e');
+        if (kDebugMode) print('Error launching payment scheme: $e');
       }
     }
 
@@ -108,7 +117,7 @@ class _WebViewAppState extends State<WebViewApp> {
             final directUrl = url.replaceFirst('intent://', '$scheme://');
             final parsedUrl = Uri.parse(directUrl.split('#Intent').first);
             if (await canLaunchUrl(parsedUrl)) {
-              await launchUrl(parsedUrl, mode: LaunchMode.externalNonBrowserApplication);
+              await launchUrl(parsedUrl, mode: LaunchMode.externalApplication);
               return NavigationActionPolicy.CANCEL;
             }
           }
@@ -123,7 +132,7 @@ class _WebViewAppState extends State<WebViewApp> {
         } else {
           final uri = Uri.parse(url);
           if (await canLaunchUrl(uri)) {
-            await launchUrl(uri, mode: LaunchMode.externalNonBrowserApplication);
+            await launchUrl(uri, mode: LaunchMode.externalApplication);
             return NavigationActionPolicy.CANCEL;
           }
         }
